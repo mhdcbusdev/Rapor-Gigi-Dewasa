@@ -7,7 +7,15 @@
 <title>Cari Rapor Gigi — Medikids</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Kalau nanti MHDC punya file font Gotham berlisensi, upload .woff2-nya ke
+   repo ini lalu hapus tanda komentar di bawah.
+@font-face{font-family:'Gotham';src:url('Gotham-Book.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Gotham';src:url('Gotham-Medium.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Gotham';src:url('Gotham-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+*/
+</style>
 <style>
 :root{
   --red:#7A5537; --red-dark:#5A3D26; --red-soft:#F3EBE2;
@@ -20,9 +28,9 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{background:var(--cream);color:var(--navy);
-  font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  font-family:'Gotham','Montserrat',system-ui,-apple-system,sans-serif;
   font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
-h1,h2{font-family:'Baloo 2',sans-serif;font-weight:800;letter-spacing:-.01em;margin:0}
+h1,h2{font-family:'Gotham','Montserrat',sans-serif;font-weight:700;letter-spacing:-.01em;margin:0}
 
 .topbar{position:sticky;top:0;z-index:20;background:var(--red);color:#fff;padding:14px 18px;
   box-shadow:0 6px 18px -10px rgba(90,61,38,.7)}
@@ -46,7 +54,7 @@ label{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
 input[type=search],input[type=text]{flex:1;min-width:200px;padding:12px 13px;font:inherit;font-size:15px;
   color:var(--navy);background:#FFFDFB;border:1.5px solid var(--line-strong);border-radius:10px}
 input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(122,85,55,.16)}
-.btn{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:15px;border:none;border-radius:11px;
+.btn{font-family:'Gotham','Montserrat',sans-serif;font-weight:700;font-size:15px;border:none;border-radius:11px;
   padding:12px 22px;cursor:pointer;transition:.15s}
 .btn.primary{background:var(--red);color:#fff}
 .btn.primary:hover{background:var(--red-dark)}
@@ -61,7 +69,7 @@ input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(122,8
 
 .hasil{display:flex;flex-direction:column;gap:10px}
 .item{border:1.5px solid var(--line-strong);border-radius:12px;padding:14px;background:#FFFDFB}
-.item .nm{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;line-height:1.2}
+.item .nm{font-family:'Gotham','Montserrat',sans-serif;font-weight:800;font-size:18px;line-height:1.2}
 .item .meta{font-size:13px;color:var(--navy-soft);margin-top:3px}
 .item .meta b{color:var(--navy);font-weight:600}
 .item .aksi{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
@@ -284,7 +292,7 @@ function tampilkan(hasil){
     });
     aksi.appendChild(salin);
 
-    const kirim=el("button","btn hijau kecil","Kirim ke orang tua");
+    const kirim=el("button","btn hijau kecil","Kirim ke pasien");
     kirim.type="button";
     const kabar=el("div","kabar");
     kirim.addEventListener("click",async()=>{
@@ -301,12 +309,12 @@ function tampilkan(hasil){
         } else {
           kabar.textContent=(h && h.error) ? h.error : "Pengiriman gagal.";
           kabar.classList.add("tampil","gagal");
-          kirim.disabled=false; kirim.textContent="Kirim ke orang tua";
+          kirim.disabled=false; kirim.textContent="Kirim ke pasien";
         }
       }catch(e){
         kabar.textContent="Gagal menghubungi server. Coba lagi.";
         kabar.classList.add("tampil","gagal");
-        kirim.disabled=false; kirim.textContent="Kirim ke orang tua";
+        kirim.disabled=false; kirim.textContent="Kirim ke pasien";
       }
     });
     aksi.appendChild(kirim);
