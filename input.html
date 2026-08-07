@@ -7,7 +7,15 @@
 <title>Form Rapor Gigi Dewasa — MHDC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Kalau nanti MHDC punya file font Gotham berlisensi, upload .woff2-nya ke
+   repo ini lalu hapus tanda komentar di bawah.
+@font-face{font-family:'Gotham';src:url('Gotham-Book.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Gotham';src:url('Gotham-Medium.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Gotham';src:url('Gotham-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+*/
+</style>
 <style>
 :root{
   --red:#7A5537; --red-dark:#5A3D26; --red-soft:#F3EBE2;
@@ -20,9 +28,9 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{background:var(--cream);color:var(--navy);
-  font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  font-family:'Gotham','Montserrat',system-ui,-apple-system,sans-serif;
   font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
-h1,h2{font-family:'Baloo 2',sans-serif;font-weight:800;letter-spacing:-.01em;margin:0}
+h1,h2{font-family:'Gotham','Montserrat',sans-serif;font-weight:700;letter-spacing:-.01em;margin:0}
 
 .topbar{position:sticky;top:0;z-index:30;background:var(--red);color:#fff;padding:14px 18px;
   box-shadow:0 6px 18px -10px rgba(90,61,38,.7)}
@@ -41,7 +49,7 @@ h1,h2{font-family:'Baloo 2',sans-serif;font-weight:800;letter-spacing:-.01em;mar
 section.card{background:var(--card);border:1px solid var(--line);border-radius:14px;
   box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
 .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
-.sec-num{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:13px;color:var(--red);
+.sec-num{font-family:'Gotham','Montserrat',sans-serif;font-weight:700;font-size:13px;color:var(--red);
   background:var(--red-soft);border-radius:8px;min-width:26px;height:26px;display:grid;place-items:center;flex:none}
 .sec-head h2{font-size:19px}
 .sec-desc{font-size:13px;color:var(--navy-soft);margin:0 0 16px 36px}
@@ -97,6 +105,14 @@ input.bad,select.bad,textarea.bad{border-color:var(--red);background:#FFF7F6}
 .bahasa button[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
 .bahasa .ket{font-size:12px;color:var(--navy-soft);font-weight:500;flex-basis:100%}
 
+.bahasa{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#FAF7F2;
+  border:1.5px solid var(--line-strong);border-radius:12px;padding:12px 14px;margin-bottom:16px}
+.bahasa .t{font-size:13px;font-weight:700;margin-right:4px}
+.bahasa button{border:1.5px solid var(--line-strong);background:#fff;color:var(--navy);font:inherit;
+  font-size:13.5px;font-weight:700;padding:8px 16px;border-radius:999px;cursor:pointer;transition:.15s}
+.bahasa button[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.bahasa .ket{font-size:12px;color:var(--navy-soft);font-weight:500;flex-basis:100%}
+
 .quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
 .quick button{border:1px solid var(--line-strong);background:#fff;color:var(--navy);font:inherit;font-size:12px;
   font-weight:600;padding:5px 10px;border-radius:999px;cursor:pointer}
@@ -108,13 +124,13 @@ input.bad,select.bad,textarea.bad{border-color:var(--red);background:#FFF7F6}
   letter-spacing:.04em;text-transform:uppercase}
 
 .sub-blok{border:1.5px solid var(--line-strong);border-radius:12px;padding:14px;background:#FFFDFB}
-.sub-judul{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;color:var(--red);margin-bottom:12px}
+.sub-judul{font-family:'Gotham','Montserrat',sans-serif;font-weight:800;font-size:15px;color:var(--red);margin-bottom:12px}
 
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,246,239,.94);
   backdrop-filter:blur(8px);border-top:1px solid var(--line-strong);padding:12px 16px}
 .bar-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:12px}
 .bar .status{font-size:12.5px;color:var(--navy-soft);font-weight:500;flex:1}
-.btn{font:inherit;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:15px;border:none;border-radius:11px;
+.btn{font:inherit;font-family:'Gotham','Montserrat',sans-serif;font-weight:700;font-size:15px;border:none;border-radius:11px;
   padding:13px 26px;cursor:pointer;transition:.15s}
 .btn.primary{background:var(--red);color:#fff;box-shadow:0 6px 16px -8px rgba(122,85,55,.9)}
 .btn.primary:hover{background:var(--red-dark)}
@@ -141,7 +157,7 @@ input.bad,select.bad,textarea.bad{border-color:var(--red);background:#FFF7F6}
   <div class="box">
     <div class="tick">&#10003;</div>
     <h2>Rapor terkirim</h2>
-    <p>Data masuk Google Sheet, dan WhatsApp otomatis dikirim ke nomor orang tua serta PIC event.</p>
+    <p>Data masuk Google Sheet, dan WhatsApp otomatis dikirim ke nomor pasien serta PIC event.</p>
     <div class="recap" id="recap"></div>
     <button class="btn primary" style="width:100%" id="nextPatient">Isi pasien berikutnya</button>
     <button class="btn ghost" style="width:100%;margin-top:8px" id="resetAll">Mulai dari kosong</button>
@@ -166,6 +182,14 @@ input.bad,select.bad,textarea.bad{border-color:var(--red);background:#FFF7F6}
     (<code>https://script.google.com/macros/s/.../exec</code>).
   </div>
 
+  <div class="bahasa">
+    <span class="t">Bahasa rapor</span>
+    <button type="button" id="bhsID" aria-pressed="true">Indonesia</button>
+    <button type="button" id="bhsEN" aria-pressed="false">English</button>
+    <span class="ket">Pilihan di form ini tetap Bahasa Indonesia. Tombol di atas hanya menentukan bahasa
+      rapor dan pesan WhatsApp yang diterima pasien.</span>
+  </div>
+
   <form id="form" novalidate>
 
     <!-- ============ 1. PASIEN ============ -->
@@ -175,17 +199,17 @@ input.bad,select.bad,textarea.bad{border-color:var(--red);background:#FFF7F6}
       <div class="grid two">
         <div class="f span">
           <label class="req" for="nama">Nama pasien</label>
-          <input type="text" id="nama" data-key="Nama Pasien" data-req placeholder="Nama lengkap anak">
+          <input type="text" id="nama" data-key="Nama Pasien" data-req placeholder="Nama lengkap pasien">
           <div class="err-msg">Wajib diisi.</div>
         </div>
         <div class="f">
-          <label class="req" for="hp">No HP orang tua</label>
+          <label class="req" for="hp">No HP pasien</label>
           <input type="tel" id="hp" data-key="No HP" data-req inputmode="numeric" placeholder="0812xxxxxxx">
           <div class="hint" id="hpPrev">Akan dikirim ke: —</div>
           <div class="err-msg">Nomor HP wajib diisi.</div>
         </div>
         <div class="f">
-          <label for="email">Email orang tua <span class="hint">(opsional)</span></label>
+          <label for="email">Email pasien <span class="hint">(opsional)</span></label>
           <input type="email" id="email" data-key="Email" placeholder="nama@email.com">
         </div>
         <div class="f">
@@ -225,7 +249,7 @@ input.bad,select.bad,textarea.bad{border-color:var(--red);background:#FFF7F6}
           <div class="err-msg">Wajib diisi.</div>
         </div>
         <div class="linkbox">
-          <span class="t">Link rapor yang akan dikirim ke orang tua</span>
+          <span class="t">Link rapor yang akan dikirim ke pasien</span>
           <span id="linkPrev">—</span>
         </div>
       </div>
@@ -271,7 +295,7 @@ input.bad,select.bad,textarea.bad{border-color:var(--red);background:#FFF7F6}
     <!-- ============ 3. PESAN & REKOMENDASI ============ -->
     <section class="card">
       <div class="sec-head"><div class="sec-num">3</div><h2>Pesan dokter &amp; rekomendasi</h2></div>
-      <p class="sec-desc">Bagian ini yang tampil di halaman "Pesan Dari Dokter" pada rapor.</p>
+      <p class="sec-desc">Bagian ini yang tampil di halaman "Pesan & Rekomendasi Dokter" pada rapor.</p>
       <div class="grid">
         <div class="f">
           <span class="lbl">Pesan dokter</span>
@@ -279,7 +303,7 @@ input.bad,select.bad,textarea.bad{border-color:var(--red);background:#FFF7F6}
         </div>
         <div class="f">
           <label for="pesanLain">Pesan lainnya <span class="hint">(opsional, ditulis bebas)</span></label>
-          <textarea id="pesanLain" data-key="Pesan lainnya" placeholder="Catatan khusus untuk orang tua"></textarea>
+          <textarea id="pesanLain" data-key="Pesan lainnya" placeholder="Catatan khusus untuk pasien"></textarea>
         </div>
         <div class="f">
           <span class="lbl">Rekomendasi perawatan lanjutan</span>
@@ -323,7 +347,7 @@ input.bad,select.bad,textarea.bad{border-color:var(--red);background:#FFF7F6}
 
 <div class="bar">
   <div class="bar-inner">
-    <div class="status" id="status">Periksa lagi sebelum kirim — WhatsApp langsung terkirim ke orang tua.</div>
+    <div class="status" id="status">Periksa lagi sebelum kirim — WhatsApp langsung terkirim ke pasien.</div>
     <button class="btn primary" id="submitBtn">Kirim rapor gigi</button>
   </div>
 </div>
@@ -524,6 +548,15 @@ function rapikanNomorHP(v){
   return "62"+s.replace(/^0+/,"");
 }
 
+let BAHASA = "ID";   // hanya menandai bahasa rapor untuk pasien
+
+function setBahasa(kode){
+  BAHASA = kode;
+  $("#bhsID").setAttribute("aria-pressed", kode==="ID" ? "true" : "false");
+  $("#bhsEN").setAttribute("aria-pressed", kode==="EN" ? "true" : "false");
+  // pilihan di form tidak berubah — yang berubah hanya bahasa rapor
+}
+
 function bangunOpsi(){
   $$(".opts[data-key]").forEach(box=>{
     const key=box.dataset.key;
@@ -540,6 +573,9 @@ function bangunOpsi(){
     });
   });
 }
+
+$("#bhsID").addEventListener("click",()=>setBahasa("ID"));
+$("#bhsEN").addEventListener("click",()=>setBahasa("EN"));
 
 /* ---------- radio & checkbox ---------- */
 bangunOpsi();
@@ -618,6 +654,7 @@ function ambilData(){
   d["No HP"]=rapikanNomorHP(d["No HP"]);
   d["No Hp PIC/ Pengisi"]=rapikanNomorHP(d["No Hp PIC/ Pengisi"]);
   d["Penjelasan_Hidden"]=PENJELASAN[d["Kondisi Gigi Secara Umum"]]||"";
+  d["Bahasa"]=BAHASA;
   d["Rapor ID"]=raporIdSekarang();
   return d;
 }
