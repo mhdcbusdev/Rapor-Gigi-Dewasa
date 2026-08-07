@@ -9,7 +9,7 @@ window.MHDC_CONFIG = {
 
   /* 1) WAJIB DIISI — URL Web App Apps Script milik spreadsheet DEWASA
         Apps Script > Deploy > Manage deployments > salin "Web app URL" */
-  API_URL: "https://script.google.com/macros/s/AKfycbzf3gjLwJp5TH__sh88kwj5gOgSkzJHWs5o5gpPkCz5Yh_2D54c0UWF2lK0e7lNmDm1iw/exec",
+  API_URL: "",
 
   /* 2) Alamat halaman rapor. Sesuaikan kalau nama repo berbeda,
         dan harus sama dengan RAPOR_BASE di watzap.gs */
@@ -22,13 +22,11 @@ window.MHDC_CONFIG = {
   LOGO_KANAN:   "Logo MHDC.png",
   BG_HALAMAN:   "BG Rapor glgi Dewasa.png",
 
-  /* 4) Peta gigi berwarna. false = hanya gambar di atas yang tampil */
-  PETA_WARNA: true,
 
-  /* 5) Nomor WhatsApp CRO untuk tombol "Tanya MHDC". Kosongkan kalau tidak dipakai */
+  /* 4) Nomor WhatsApp CRO untuk tombol "Tanya MHDC". Kosongkan kalau tidak dipakai */
   WA_CRO: "",
 
-  /* 6) Link artikel edukasi di mhdc.co.id */
+  /* 5) Link artikel edukasi di mhdc.co.id */
   ARTIKEL: {
     tambal:
       "https://mhdc.co.id/artikel-dan-promo/tambal-gigi-prosedur-jenis-dan-mana-yang-cocok-untuk-kamu/",
