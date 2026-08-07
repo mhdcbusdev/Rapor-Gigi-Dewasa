@@ -7,7 +7,15 @@
 <title>Dental Health Report — MHDC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Kalau nanti MHDC punya file font Gotham berlisensi, upload .woff2-nya ke
+   repo ini lalu hapus tanda komentar di bawah — otomatis dipakai semua halaman.
+@font-face{font-family:'Gotham';src:url('Gotham-Book.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Gotham';src:url('Gotham-Medium.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Gotham';src:url('Gotham-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+*/
+</style>
 <style>
 :root{
   --red:#7A5537; --red-dark:#5A3D26; --red-soft:#F3EBE2;
@@ -23,9 +31,9 @@
 html,body{margin:0;padding:0}
 body{background:#E9E7E3;color:var(--navy);
   -webkit-print-color-adjust:exact;print-color-adjust:exact;
-  font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  font-family:'Gotham','Montserrat',system-ui,-apple-system,sans-serif;
   font-size:15px;line-height:1.55;-webkit-text-size-adjust:100%}
-h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;font-weight:800;letter-spacing:-.005em;margin:0}
+h1,h2,h3,.display{font-family:'Gotham','Montserrat',sans-serif;font-weight:700;letter-spacing:-.01em;margin:0}
 
 /* ---------- halaman ---------- */
 .page{background:var(--paper);background-size:cover;background-position:top center;background-repeat:no-repeat;
@@ -34,35 +42,30 @@ h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;font-weight:800;letter-spacin
 .page + .page{margin-top:18px}
 
 /* ---------- judul bergaya PDF ---------- */
-.ttl{text-align:center;margin-bottom:18px;padding:0 84px}
+.ttl{text-align:center;margin-bottom:18px}
 @media(max-width:560px){
-  /* di layar sempit dua logo ditaruh sejajar di atas judul */
-  .brand{position:static;display:inline-block;margin-bottom:10px}
-  .brand.kiri{float:left}
-  .brand:not(.kiri){float:right}
-  .brand img{height:24px}
-  .ttl{clear:both;padding:0}
+  .brand img{height:32px}
+  .brand.kiri img{height:28px}
 }
 .ttl .big{font-size:30px;color:var(--red);line-height:1.05;text-transform:uppercase}
 .ttl .big.sm{font-size:25px}
 .ttl .sub{font-size:13px;color:var(--navy-soft);font-weight:600;margin-top:2px}
-.brand{position:absolute;top:20px;right:26px;font-family:'Baloo 2',sans-serif;font-weight:800;
-  font-size:15px;color:var(--red);line-height:1}
-.brand.kiri{left:26px;right:auto}
-.brand img{display:block;height:34px;width:auto}
-.brand.kiri img{height:30px}
-.goodjob{display:inline-block;background:var(--yellow);color:#fff;font-family:'Baloo 2',sans-serif;
+.kop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.brand{font-family:'Gotham','Montserrat',sans-serif;font-weight:700;font-size:15px;color:var(--red);line-height:1}
+.brand img{display:block;height:46px;width:auto}
+.brand.kiri img{height:40px}
+.goodjob{display:inline-block;background:var(--yellow);color:#fff;font-family:'Gotham','Montserrat',sans-serif;
   font-weight:800;font-size:12px;padding:4px 13px;border-radius:999px;margin-bottom:6px;letter-spacing:.04em}
 
 /* ---------- identitas ---------- */
 .idt{text-align:center;margin:14px 0 18px}
-.idt div{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:17px;color:var(--red);margin:3px 0}
+.idt div{font-family:'Gotham','Montserrat',sans-serif;font-weight:700;font-size:17px;color:var(--red);margin:3px 0}
 .idt span{color:var(--navy)}
 
 /* ---------- kotak kondisi ---------- */
 .kondisi{border:2px dashed var(--red);background:var(--red-soft);border-radius:14px;padding:16px 18px;text-align:center}
-.kondisi .l{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;color:var(--navy-soft)}
-.kondisi .v{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:22px;color:var(--red);margin:1px 0 5px}
+.kondisi .l{font-family:'Gotham','Montserrat',sans-serif;font-weight:700;font-size:14px;color:var(--navy-soft)}
+.kondisi .v{font-family:'Gotham','Montserrat',sans-serif;font-weight:800;font-size:22px;color:var(--red);margin:1px 0 5px}
 .kondisi .t{font-size:13.5px;color:#6A7C93;line-height:1.5}
 
 /* ---------- dua kolom: odontogram + temuan ---------- */
@@ -73,8 +76,8 @@ img.gambargigi{display:block;width:100%;max-width:420px;height:auto;margin:0 aut
 img.judul{display:block;width:100%;max-width:430px;height:auto;margin:0 auto}
 .odo-cap{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
   color:var(--navy-soft);text-align:center;margin:2px 0 6px}
-.odo-ax{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;fill:var(--navy-soft);letter-spacing:.08em}
-.gg-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:10.5px;font-weight:700}
+.odo-ax{font-family:'Gotham','Montserrat',sans-serif;font-size:11px;font-weight:700;fill:var(--navy-soft);letter-spacing:.08em}
+.gg-num{font-family:'Gotham','Montserrat',sans-serif;font-size:10.5px;font-weight:700}
 .legend{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;font-size:12px;font-weight:600;margin-top:4px}
 .legend span{margin:0 6px}
 .legend i{width:11px;height:11px;border-radius:4px;display:inline-block;margin-right:5px;vertical-align:-1px}
@@ -85,7 +88,7 @@ img.judul{display:block;width:100%;max-width:430px;height:auto;margin:0 auto}
 .tm p{margin:1px 0 0;font-size:13.5px;color:#54687F}
 
 /* ---------- pil tombol gaya PDF ---------- */
-.pill{display:inline-block;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;
+.pill{display:inline-block;font-family:'Gotham','Montserrat',sans-serif;font-weight:800;font-size:15px;
   color:#fff;background:var(--red);padding:8px 20px;border-radius:999px;margin:16px 0 10px}
 .pill.navy{background:var(--navy-btn)}
 .center{text-align:center}
@@ -97,7 +100,7 @@ ul.clean li{margin-bottom:4px;font-size:14px}
 
 /* ---------- pesan dokter ---------- */
 .halo{text-align:center;font-size:15px;font-weight:600;line-height:1.6}
-.halo b{display:block;font-family:'Baloo 2',sans-serif;font-size:22px;color:var(--red);font-weight:800;margin:2px 0}
+.halo b{display:block;font-family:'Gotham','Montserrat',sans-serif;font-size:22px;color:var(--red);font-weight:800;margin:2px 0}
 .msgbox{background:#EFEFEF;border-radius:10px;padding:14px 16px;font-size:14px;text-align:center;
   color:#3C4A5C;margin-bottom:8px}
 .msgbox:last-child{margin-bottom:0}
@@ -117,9 +120,9 @@ ul.clean li{margin-bottom:4px;font-size:14px}
 .prod .row{display:grid;gap:12px}
 .prod .it{align-items:flex-start}
 @media(min-width:560px){.prod .row{grid-template-columns:1fr 1fr}}
-.prod .it{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#4A6180}
-.prod .nm{background:var(--yellow);color:#fff;font-weight:700;font-size:12px;padding:3px 9px;
-  border-radius:6px;flex:none}
+.prod .it{display:block;font-size:13.5px;color:#4A6180;line-height:1.5}
+.prod .nm{display:inline-block;background:var(--yellow);color:#fff;font-weight:700;font-size:12px;
+  padding:3px 9px;border-radius:6px;margin-bottom:4px;max-width:100%;word-break:break-word}
 
 /* ---------- aksi segera ---------- */
 .act{border:2px solid var(--navy-btn);border-radius:14px;padding:14px 16px;margin-bottom:14px}
@@ -129,7 +132,7 @@ ul.clean li{margin-bottom:4px;font-size:14px}
 
 /* ---------- footer & tombol ---------- */
 .tools{max-width:760px;margin:0 auto 26px;display:flex;gap:10px;padding:0 8px;flex-wrap:wrap}
-.btn{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:15px;border:none;border-radius:12px;
+.btn{font-family:'Gotham','Montserrat',sans-serif;font-weight:700;font-size:15px;border:none;border-radius:12px;
   padding:13px 22px;cursor:pointer;flex:1;min-width:160px;text-align:center;text-decoration:none;display:block}
 .btn.primary{background:var(--red);color:#fff}
 .btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line-strong)}
@@ -150,11 +153,8 @@ ul.clean li{margin-bottom:4px;font-size:14px}
 @page{size:A4;margin:12mm 10mm}
 @media print{
   body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .brand{position:absolute;top:20px;right:26px;float:none;margin-bottom:0}
-  .brand.kiri{left:26px;right:auto}
-  .brand img{height:28px}
-  .brand.kiri img{height:25px}
-  .ttl{padding:0 84px}
+  .brand img{height:40px}
+  .brand.kiri img{height:35px}
   .tools,.foot,.tips-print{display:none !important}
   .page{box-shadow:none;border-radius:0;margin:0;padding:0 0 8mm;max-width:none;
         break-after:page;page-break-after:always}
@@ -228,7 +228,7 @@ ul.clean li{margin-bottom:4px;font-size:14px}
 
     <div class="prod" style="margin-top:24px">
       <div class="center" style="margin-bottom:12px">
-        <span style="font-family:'Baloo 2',sans-serif;font-weight:800;color:var(--red);font-size:15px">
+        <span style="font-family:'Gotham','Montserrat',sans-serif;font-weight:800;color:var(--red);font-size:15px">
           REKOMENDASI PRODUK PERAWATAN GIGI</span>
       </div>
       <div class="row" id="produk"></div>
@@ -333,6 +333,36 @@ function svgEl(tag,attr){
   const e=document.createElementNS(NS,tag);
   for(const k in attr) e.setAttribute(k,attr[k]);
   return e;
+}
+
+/* Daftar pilihan Pesan Dokter. Teksnya sendiri mengandung koma, jadi
+   pemisahannya tidak boleh asal pecah di setiap koma. */
+const OPSI_PESAN = [
+  "Selamat, gigi Anda dalam kondisi sangat baik! Tetap jaga kebersihan mulut dan lakukan pemeriksaan rutin 6 bulan sekali untuk mempertahankannya",
+  "Terdapat sedikit plak atau tanda awal gigi berlubang. Segera lakukan pemeriksaan lanjutan untuk mencegah masalah lebih lanjut",
+  "Ada masalah yang membutuhkan perhatian segera, seperti gigi berlubang parah atau sisa akar. Segera jadwalkan perawatan untuk mencegah komplikasi",
+  "Gigi geraham bungsu Anda perlu diperiksa lebih lanjut untuk memastikan kondisinya. Kami sarankan melakukan rontgen untuk evaluasi yang lebih lengkap",
+  "Terdapat gigi yang sudah hilang (ompong) dan belum diganti. Disarankan memasang gigi tiruan untuk menjaga fungsi kunyah dan kesehatan mulut",
+  "Susunan gigi Anda bisa diperbaiki agar lebih rapi. Konsultasikan dengan dokter ortodonti untuk mendapatkan solusi terbaik"
+];
+function pecahPesanDokter(v){
+  let sisa=String(v||"").trim();
+  if(!sisa) return [];
+  const hasil=[];
+  let lanjut=true;
+  while(sisa && lanjut){
+    lanjut=false;
+    for(const o of OPSI_PESAN){
+      if(sisa.indexOf(o)===0){
+        hasil.push(o);
+        sisa=sisa.slice(o.length).replace(/^\s*,\s*/,"");
+        lanjut=true;
+        break;
+      }
+    }
+  }
+  if(sisa) hasil.push(sisa);          // teks bebas yang tidak ada di daftar
+  return hasil.length ? hasil : [String(v).trim()];
 }
 
 /* ---------- util ---------- */
@@ -452,13 +482,8 @@ function render(d){
 
   /* ---- latar bertekstur di tiap halaman ---- */
   if(CONFIG.BG_HALAMAN){
-    const uji=new Image();
-    uji.onload=()=>{
-      document.querySelectorAll(".page").forEach(pg=>{
-        pg.style.backgroundImage='url("'+CONFIG.BG_HALAMAN.replace(/ /g,"%20")+'")';
-      });
-    };
-    uji.src=CONFIG.BG_HALAMAN.replace(/ /g,"%20");
+    const bg='url("'+CONFIG.BG_HALAMAN.replace(/ /g,"%20")+'")';
+    document.querySelectorAll(".page").forEach(pg=>{ pg.style.backgroundImage=bg; });
   }
 
   /* ---- logo kiri (Medikids) & kanan (MHDC) di tiap halaman ---- */
@@ -471,13 +496,17 @@ function render(d){
   };
   document.querySelectorAll(".page").forEach(pg=>{
     const kanan=pg.querySelector(".brand");
-    if(kanan) pasangLogo(kanan, CONFIG.LOGO_KANAN, "MHDC");
-    if(CONFIG.LOGO_KIRI){
-      const kiri=document.createElement("div");
-      kiri.className="brand kiri";
-      pasangLogo(kiri, CONFIG.LOGO_KIRI, "Medikids");
-      pg.insertBefore(kiri, pg.firstChild);
-    }
+    if(!kanan) return;
+    pasangLogo(kanan, CONFIG.LOGO_KANAN, "MHDC");
+    const kiri=document.createElement("div");
+    kiri.className="brand kiri";
+    pasangLogo(kiri, CONFIG.LOGO_KIRI, "Medikids");
+    // dua logo ditaruh dalam satu baris di atas judul, jadi tidak bisa bertabrakan
+    const kop=document.createElement("div");
+    kop.className="kop";
+    kop.appendChild(kiri);
+    kop.appendChild(kanan);
+    pg.insertBefore(kop, pg.firstChild);
   });
 
   /* ---- gambar judul di paling atas ---- */
@@ -528,7 +557,7 @@ function render(d){
   halo.appendChild(el("b",null, namaDokter(d["Nama Dokter"])));
 
   const pb=$("#pesan");
-  pecah(d["Pesan Dokter"]).forEach(p=>pb.appendChild(el("div","msgbox",p)));
+  pecahPesanDokter(d["Pesan Dokter"]).forEach(p=>pb.appendChild(el("div","msgbox",p)));
   if(ada(d["Pesan lainnya"])) pb.appendChild(el("div","msgbox",d["Pesan lainnya"]));
   if(!pb.children.length){
     pb.appendChild(el("div","msgbox","Terima kasih sudah menjaga kesehatan gigi Anda. Jangan lupa periksa rutin setiap 6 bulan ya!"));
@@ -560,14 +589,14 @@ function render(d){
    ["Rekomendasi Vitamin Gigi","Vitamin gigi"],["Additional","Additional"]].forEach(([k,pre])=>{
     pecah(d[k]).forEach(v=>{
       if(v==="-") return;
-      produkDipilih.push([ pre ? pre+" : "+v : v, "Direkomendasikan oleh dokter untuk Anda." ]);
+      produkDipilih.push([ pre ? pre+" : "+v : v, "" ]);
     });
   });
   const pr=$("#produk");
   (produkDipilih.length?produkDipilih:[]).forEach(([nm,ket])=>{
     const it=el("div","it");
     it.appendChild(el("span","nm",nm));
-    it.appendChild(el("span",null,ket));
+    if(ket) it.appendChild(el("span",null,ket));
     pr.appendChild(it);
   });
 
