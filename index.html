@@ -71,16 +71,8 @@ h1,h2,h3,.display{font-family:'Gotham','Montserrat',sans-serif;font-weight:700;l
 /* ---------- dua kolom: odontogram + temuan ---------- */
 .duo{display:grid;gap:18px;margin-top:22px}
 @media(min-width:660px){.duo{grid-template-columns:1fr 1fr;align-items:start}}
-svg.odo{display:block;width:100%;height:auto}
 img.gambargigi{display:block;width:100%;max-width:420px;height:auto;margin:0 auto 8px}
 img.judul{display:block;width:100%;max-width:430px;height:auto;margin:0 auto}
-.odo-cap{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--navy-soft);text-align:center;margin:2px 0 6px}
-.odo-ax{font-family:'Gotham','Montserrat',sans-serif;font-size:11px;font-weight:700;fill:var(--navy-soft);letter-spacing:.08em}
-.gg-num{font-family:'Gotham','Montserrat',sans-serif;font-size:10.5px;font-weight:700}
-.legend{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;font-size:12px;font-weight:600;margin-top:4px}
-.legend span{margin:0 6px}
-.legend i{width:11px;height:11px;border-radius:4px;display:inline-block;margin-right:5px;vertical-align:-1px}
 
 .tm{margin-bottom:14px}
 .tm h3{font-size:16px;color:var(--red);margin-bottom:1px}
@@ -160,7 +152,6 @@ ul.clean li{margin-bottom:4px;font-size:14px}
         break-after:page;page-break-after:always}
   .page:last-of-type{break-after:auto;page-break-after:auto}
   .duo{grid-template-columns:1fr 1fr}
-  svg.odo{max-width:86mm;margin:0 auto}
   img.judul{max-width:112mm}
   .page{padding-top:2mm}
   .tm,.act,.tip,.kondisi,.tipbox,.prod{break-inside:avoid;page-break-inside:avoid}
@@ -171,8 +162,8 @@ ul.clean li{margin-bottom:4px;font-size:14px}
 
 <div id="stLoad" class="state">
   <div class="spin"></div>
-  <h2>Membuka rapor gigi…</h2>
-  <p>Mohon tunggu sebentar.</p>
+  <h2 id="loadJudul">Membuka rapor gigi…</h2>
+  <p id="loadTeks">Mohon tunggu sebentar.</p>
 </div>
 
 <div id="stErr" class="state hide">
@@ -198,9 +189,6 @@ ul.clean li{margin-bottom:4px;font-size:14px}
     <div class="duo">
       <div>
         <img class="gambargigi hide" id="gambarGigi" alt="Gambar susunan gigi anak beserta nomornya">
-        <div class="odo-cap hide" id="capWarna">Gigi yang bermasalah</div>
-        <svg class="odo" id="odo"></svg>
-        <div class="legend" id="legend"></div>
       </div>
       <div id="temuan"></div>
     </div>
@@ -210,26 +198,26 @@ ul.clean li{margin-bottom:4px;font-size:14px}
   <!-- ================= HALAMAN 2 ================= -->
   <div class="page">
     <div class="brand">Medikids</div>
-    <div class="ttl"><div class="big sm">Pesan &amp; Rekomendasi Dokter</div></div>
+    <div class="ttl"><div class="big sm" id="jdlDokter">Pesan &amp; Rekomendasi Dokter</div></div>
 
     <div class="halo" id="halo"></div>
 
-    <div class="center"><span class="pill navy">Pesan Dokter</span></div>
+    <div class="center"><span class="pill navy" id="pilPesan">Pesan Dokter</span></div>
     <div id="pesan"></div>
 
     <hr class="hr">
 
-    <div class="ttl"><div class="big sm">Rekomendasi Dokter</div></div>
+    <div class="ttl"><div class="big sm" id="jdlRekom">Rekomendasi Dokter</div></div>
 
     <div id="blokRekom">
-      <h3 style="font-size:17px;color:var(--red);margin-bottom:2px">Perawatan Gigi Lanjutan</h3>
+      <h3 style="font-size:17px;color:var(--red);margin-bottom:2px" id="jdlLanjutan">Perawatan Gigi Lanjutan</h3>
       <div id="rekom"></div>
     </div>
 
     <div class="prod" style="margin-top:24px">
       <div class="center" style="margin-bottom:12px">
         <span style="font-family:'Gotham','Montserrat',sans-serif;font-weight:800;color:var(--red);font-size:15px">
-          REKOMENDASI PRODUK PERAWATAN GIGI</span>
+          <span id="jdlProduk">REKOMENDASI PRODUK PERAWATAN GIGI</span></span>
       </div>
       <div class="row" id="produk"></div>
     </div>
@@ -238,7 +226,7 @@ ul.clean li{margin-bottom:4px;font-size:14px}
   <!-- ================= HALAMAN 3 ================= -->
   <div class="page" id="page4">
     <div class="brand">Medikids</div>
-    <div class="ttl"><div class="big sm">Apa yang Harus Segera Dilakukan</div></div>
+    <div class="ttl"><div class="big sm" id="jdlAksi">Apa yang Harus Segera Dilakukan</div></div>
     <div id="todo"></div>
   </div>
 
@@ -273,7 +261,6 @@ const CONFIG = {
   LOGO_KIRI:    "Logo Medikids.png",
   LOGO_KANAN:   "Logo MHDC.png",
   BG_HALAMAN:   "BG Rapor glgi Dewasa.png",
-  PETA_WARNA: true,
   ARTIKEL: { tambal:"", akar:"", ompong:"", bungsu:"", karang:"", susunan:"" }
 };
 
@@ -300,7 +287,6 @@ if(!window.MHDC_CONFIG){
 const $ = (s,r=document)=>r.querySelector(s);
 
 
-const NS = "http://www.w3.org/2000/svg";
 
 const PENJELASAN = {
   "Kondisi Gigi Baik Sekali":"Gigi anak sangat sehat! Tidak ada masalah seperti gigi berlubang, plak, atau karang gigi. Kebersihan mulut terjaga dengan baik, dan gusi sehat.",
@@ -309,31 +295,75 @@ const PENJELASAN = {
   "Kondisi Gigi Perlu Perhatian":"Gigi perlu perawatan segera. Ada masalah serius seperti gigi berlubang parah, peradangan gusi, atau sisa akar yang bisa menyebabkan komplikasi jika tidak diatasi."
 };
 
-const BULAN=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const BULAN_ID=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const BULAN_EN=["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-/* ---------- penomoran gigi, mengikuti gambar acuan ---------- */
-const PERM_ATAS  = ["18","17","16","15","14","13","12","11","21","22","23","24","25","26","27","28"];
-const PERM_BAWAH = ["48","47","46","45","44","43","42","41","31","32","33","34","35","36","37","38"];
+/* ==================== DUA BAHASA ====================
+   Isi spreadsheet selalu Bahasa Indonesia. Halaman ini yang menerjemahkan
+   kalau kolom "Bahasa" berisi EN. Nilai yang tidak ada di kamus ditampilkan
+   apa adanya. */
+let LANG = "id";
+function tx(k){ return (T[LANG] && T[LANG][k] !== undefined) ? T[LANG][k] : T.id[k]; }
 
-function busur(nomor,a1,a2,rx,ry,w,h){
-  const cx=235, cy=192, out=[], n=nomor.length;
-  for(let i=0;i<n;i++){
-    const a=(a1+(a2-a1)*(n===1?0:i/(n-1)))*Math.PI/180;
-    out.push({n:nomor[i], x:cx+rx*Math.cos(a), y:cy-ry*Math.sin(a), w:w, h:h});
-  }
-  return out;
-}
-function petaGigi(){
-  return [].concat(
-    busur(PERM_ATAS,  174,   6, 166, 152, 26, 19),
-    busur(PERM_BAWAH, 186, 354, 166, 152, 26, 19)
-  );
-}
-function svgEl(tag,attr){
-  const e=document.createElementNS(NS,tag);
-  for(const k in attr) e.setAttribute(k,attr[k]);
-  return e;
-}
+const KAMUS_EN = {
+  "Kondisi Gigi Baik Sekali":"Excellent!",
+  "Kondisi Gigi Cukup Baik":"Doing Great!",
+  "Kondisi Gigi Kurang Baik":"Needs a Little Care",
+  "Kondisi Gigi Perlu Perhatian":"Needs Extra Attention",
+
+  "Tidak Ada Keluhan":"No Concerns",
+  "Gigi Impaksi":"Impacted Tooth",
+  "Gigi Malposisi":"Malpositioned Tooth",
+  "Ada Tanda Awal Masalah":"Early Signs of a Problem",
+  "Memerlukan Pemeriksaan Lebih Lanjut":"Needs Further Examination",
+  "Sudah Dicabut":"Already Extracted",
+
+  "Rapi dan Normal : Gigi tertata lurus dan tidak ada tanda-tanda kelainan.":
+    "Good Alignment: Teeth are developing normally and appear well aligned.",
+  "Gigi Tidak Rapi (Maloklusi): Gigi tidak tersusun dengan baik, misalnya berjejal, terlalu maju, atau tidak sejajar.":
+    "Alignment Needs Attention: Some teeth are not in their ideal position, for example crowded, protruding, or misaligned.",
+
+  "Tidak Ada Karang Gigi : Gigi bersih tanpa penumpukan plak atau karang gigi":
+    "No Tartar: Teeth are clean and healthy, with no signs of plaque or tartar buildup.",
+  "Karang Gigi Ringan : Plak yang mengeras mulai terbentuk di sekitar gusi dan sela-sela gigi":
+    "Mild Tartar: A small amount of tartar is beginning to form around the teeth and gums.",
+  "Karang Gigi Sedang : Karang terlihat jelas di bagian leher gigi dan mulai menyebar ke bawah garis gusi":
+    "Moderate Tartar: Tartar buildup is noticeable and professional cleaning is recommended to help maintain healthy teeth and gums.",
+  "Karang Gigi Parah : Karang menutupi sebagian besar permukaan gigi dan masuk ke area di bawah gusi.":
+    "Severe Tartar: A significant amount of tartar is present. Professional cleaning is strongly recommended to help protect the teeth and gums.",
+
+  "Selamat, gigi Anda dalam kondisi sangat baik! Tetap jaga kebersihan mulut dan lakukan pemeriksaan rutin 6 bulan sekali untuk mempertahankannya":
+    "Congratulations, your teeth are in excellent condition! Keep up your oral hygiene and schedule a routine check-up every six months to maintain it.",
+  "Terdapat sedikit plak atau tanda awal gigi berlubang. Segera lakukan pemeriksaan lanjutan untuk mencegah masalah lebih lanjut":
+    "There is a small amount of plaque or an early sign of tooth decay. Please schedule a follow-up examination to prevent further problems.",
+  "Ada masalah yang membutuhkan perhatian segera, seperti gigi berlubang parah atau sisa akar. Segera jadwalkan perawatan untuk mencegah komplikasi":
+    "There are issues that need prompt attention, such as deep cavities or remaining tooth roots. Please schedule treatment soon to prevent complications.",
+  "Gigi geraham bungsu Anda perlu diperiksa lebih lanjut untuk memastikan kondisinya. Kami sarankan melakukan rontgen untuk evaluasi yang lebih lengkap":
+    "Your wisdom teeth need further examination to confirm their condition. We recommend a dental X-ray for a more complete evaluation.",
+  "Terdapat gigi yang sudah hilang (ompong) dan belum diganti. Disarankan memasang gigi tiruan untuk menjaga fungsi kunyah dan kesehatan mulut":
+    "There are missing teeth that have not been replaced. A denture or dental prosthesis is recommended to maintain chewing function and oral health.",
+  "Susunan gigi Anda bisa diperbaiki agar lebih rapi. Konsultasikan dengan dokter ortodonti untuk mendapatkan solusi terbaik":
+    "Your tooth alignment could be improved. Please consult an orthodontist to find the best solution for you.",
+
+  "Tambal Gigi":"Dental Filling",
+  "Scaling Gigi":"Scaling (Tartar Cleaning)",
+  "Rontgen Gigi":"Dental X-Ray",
+  "Pencabutan Gigi":"Tooth Extraction",
+  "Pencabutan gigi Geraham Bungsu":"Wisdom Tooth Extraction",
+  "Pemasangan Gigi Tiruan":"Denture Fitting",
+  "Perawatan Ortodonti":"Orthodontic Treatment",
+  "Bleaching":"Teeth Whitening",
+
+  "Probiotik":"Probiotic",
+  "Obat Kumur":"Mouthwash"
+};
+
+const PENJELASAN_EN = {
+  "Excellent!":"Your teeth and gums are healthy and strong. Keep up the great brushing habits and regular dental check-ups to maintain a healthy, beautiful smile.",
+  "Doing Great!":"Your teeth are in good condition. With consistent brushing and regular dental check-ups, your smile can stay healthy and bright.",
+  "Needs a Little Care":"We found a few areas that need attention. With good brushing habits and timely dental care, we can help keep your smile healthy and strong.",
+  "Needs Extra Attention":"Some areas require prompt dental attention. Early treatment can help prevent further problems and keep you smiling with confidence."
+};
 
 /* Daftar pilihan Pesan Dokter. Teksnya sendiri mengandung koma, jadi
    pemisahannya tidak boleh asal pecah di setiap koma. */
@@ -361,16 +391,100 @@ function pecahPesanDokter(v){
       }
     }
   }
-  if(sisa) hasil.push(sisa);          // teks bebas yang tidak ada di daftar
+  if(sisa) hasil.push(sisa);
   return hasil.length ? hasil : [String(v).trim()];
 }
+
+function keEN(v){
+  const t=String(v||"").trim();
+  if(!t) return t;
+  if(KAMUS_EN[t]) return KAMUS_EN[t];
+  if(t.indexOf(",")!==-1){
+    return t.split(",").map(x=>{const y=x.trim(); return KAMUS_EN[y]||y;}).join(", ");
+  }
+  return t;
+}
+function deteksiBahasa(d){
+  return String(d["Bahasa"]||"").trim().toUpperCase()==="EN" ? "en" : "id";
+}
+function terjemahkan(d){
+  ["Kondisi Gigi Secara Umum","Gigi Bungsu","Susunan Gigi ","Susunan Gigi","Karang Gigi",
+   "Rekomendasi Perawatan Lanjutan","Rekomendasi Sikat Gigi","Rekomendasi Pasta Gigi",
+   "Rekomendasi Vitamin Gigi","Additional"].forEach(k=>{
+    if(d[k]!==undefined) d[k]=keEN(d[k]);
+  });
+  d["Pesan Dokter"] = pecahPesanDokter(d["Pesan Dokter"]).map(p=>KAMUS_EN[p]||p).join("\n\n@@\n\n");
+  const kond=d["Kondisi Gigi Secara Umum"];
+  if(PENJELASAN_EN[kond]) d["Penjelasan_Hidden"]=PENJELASAN_EN[kond];
+  return d;
+}
+
+const T = {
+  id:{
+    loadJudul:"Membuka rapor gigi…", loadTeks:"Mohon tunggu sebentar.",
+    lNama:"Nama", lLahir:"Tanggal Lahir", lPeriksa:"Tanggal Pemeriksaan",
+    kondisiLabel:"Hasil Pemeriksaan Gigi Secara Umum", kondisiKosong:"Hasil Pemeriksaan",
+    tBerlubang:"Gigi Berlubang", tSisaAkar:"Sisa Akar", tBungsu:"Gigi Geraham Bungsu",
+    tOmpong:"Gigi Ompong/Hilang", tKarang:"Karang Gigi", tSusunan:"Susunan Gigi", tGigi:"Gigi : ",
+    tBaikJdl:"Hasil Baik", tBaikTeks:"Tidak ditemukan masalah pada pemeriksaan hari ini. Pertahankan ya!",
+    jdlDokter:"Pesan & Rekomendasi Dokter", pilPesan:"Pesan Dokter",
+    haloAwal:"Dokter yang Melakukan Pemeriksaan",
+    pesanBawaan:"Terima kasih sudah menjaga kesehatan gigi Anda. Jangan lupa periksa rutin setiap 6 bulan ya!",
+    jdlRekom:"Rekomendasi Dokter", jdlLanjutan:"Perawatan Gigi Lanjutan",
+    rekomAwal:"Direkomendasikan untuk melakukan :", catatan:"Catatan tambahan : ",
+    jdlProduk:"REKOMENDASI PRODUK PERAWATAN GIGI",
+    pSikat:"Sikat gigi", pPasta:"Pasta gigi", pVitamin:"Vitamin gigi", pAdd:"Additional",
+    jdlAksi:"Apa yang Harus Segera Dilakukan", artikel:"Baca Artikel, Klik Disini",
+    btnPrint:"Simpan / cetak rapor (PDF)", btnCopy:"Salin link rapor", btnCopyOk:"Link tersalin",
+    btnWa:"Tanya MHDC via WhatsApp",
+    caraPrint:'Cara simpan jadi PDF: tekan <b>Simpan / cetak rapor</b> &rarr; pada pilihan printer, pilih <b>Save as PDF</b> / <b>Simpan sebagai PDF</b>.',
+    foot:"Rapor ini dibuat otomatis dari hasil pemeriksaan di booth MHDC Group.<br>Untuk pertanyaan lebih lanjut, silakan hubungi tim MHDC.",
+    aksi:{
+      tambal:["Tambal Gigi yang Berlubang","Gigi berlubang bisa memburuk dengan cepat, menyebabkan nyeri hebat, infeksi, dan merusak gigi lain. Segera lakukan tambal gigi sebelum masalah bertambah parah."],
+      akar:["Cabut Sisa Akar","Sisa akar yang tertinggal bisa menyebabkan infeksi serius, bengkak, dan kerusakan pada gusi serta tulang rahang. Segera lakukan pencabutan untuk mencegah komplikasi lebih lanjut."],
+      ompong:["Ganti Gigi yang Ompong/Hilang","Gigi yang hilang bisa menyebabkan gigi bergeser, gangguan gigitan, dan kerusakan tulang rahang. Ganti segera dengan gigi tiruan untuk menjaga kesehatan mulut dan fungsi kunyah."],
+      bungsu:["Cabut Gigi Geraham Bungsu Bermasalah","Gigi bungsu yang tumbuh tidak sempurna dapat menyebabkan nyeri, infeksi, dan merusak gigi lain. Segera konsultasikan pencabutan untuk mencegah komplikasi."],
+      karang:["Bersihkan Karang Gigi","Penumpukan karang bisa menyebabkan gusi meradang dan infeksi. Jika dibiarkan, gigi bisa goyang atau lepas. Segera lakukan scaling rutin untuk menjaga kesehatan gigi dan gusi."],
+      susunan:["Rapi dan Luruskan Susunan Gigi","Gigi yang tidak rapi bisa mengganggu fungsi kunyah, sulit dibersihkan, berisiko menimbulkan masalah lebih lanjut. Segera konsultasikan perawatan Orthodontic."]
+    }
+  },
+  en:{
+    loadJudul:"Opening dental report…", loadTeks:"Please wait a moment.",
+    lNama:"Name", lLahir:"Date of Birth", lPeriksa:"Check-up Date",
+    kondisiLabel:"Your Dental Health Report", kondisiKosong:"Dental Report",
+    tBerlubang:"Cavities Found", tSisaAkar:"Remaining Tooth Roots", tBungsu:"Wisdom Teeth",
+    tOmpong:"Missing Teeth", tKarang:"Tartar Build-up", tSusunan:"Tooth Alignment", tGigi:"Teeth : ",
+    tBaikJdl:"Great Result", tBaikTeks:"No problems were found during today's check-up. Keep it up!",
+    jdlDokter:"Dentist's Note & Recommendations", pilPesan:"Dentist's Note",
+    haloAwal:"Examined by",
+    pesanBawaan:"Thank you for taking care of your teeth. Remember to schedule a check-up every six months!",
+    jdlRekom:"Recommendations", jdlLanjutan:"Further Dental Treatment",
+    rekomAwal:"We recommend the following :", catatan:"Additional note : ",
+    jdlProduk:"DENTAL CARE PRODUCT RECOMMENDATIONS",
+    pSikat:"Toothbrush", pPasta:"Toothpaste", pVitamin:"Supplement", pAdd:"Additional",
+    jdlAksi:"What Should Be Done Next", artikel:"Read the Article, Click Here",
+    btnPrint:"Save / print report (PDF)", btnCopy:"Copy report link", btnCopyOk:"Link copied",
+    btnWa:"Chat with MHDC on WhatsApp",
+    caraPrint:'To save as PDF: tap <b>Save / print report</b> &rarr; in the printer list, choose <b>Save as PDF</b>.',
+    foot:"This report was generated automatically from your check-up at the MHDC Group booth.<br>For further questions, please contact the MHDC team.",
+    aksi:{
+      tambal:["Cavities Need Care","Cavities can worsen quickly, causing severe pain, infection, and damage to other teeth. A dental filling is recommended before the problem gets worse."],
+      akar:["Remaining Roots Need Removal","Remaining tooth roots can cause serious infection, swelling, and damage to the gums and jawbone. Extraction is recommended to prevent further complications."],
+      ompong:["Replace Your Missing Teeth","Missing teeth can cause other teeth to shift, affect your bite, and lead to jawbone loss. Replacing them with a denture helps maintain oral health and chewing function."],
+      bungsu:["Wisdom Teeth Need Attention","Wisdom teeth that do not grow properly can cause pain, infection, and damage to other teeth. Please consult about extraction to prevent complications."],
+      karang:["Keeping Teeth Clean and Healthy","Tartar buildup can inflame the gums and cause infection. Left untreated, teeth may loosen or fall out. Regular scaling helps keep teeth and gums healthy."],
+      susunan:["Straighten Your Smile","Misaligned teeth can affect chewing, are harder to clean, and may lead to further problems. Please consult about orthodontic treatment."]
+    }
+  }
+};
 
 /* ---------- util ---------- */
 function tglIndo(v){
   if(!v) return "";
   const m=String(v).match(/^(\d{4})-(\d{2})-(\d{2})/);
   if(!m) return String(v);
-  return parseInt(m[3],10)+" "+BULAN[parseInt(m[2],10)-1]+" "+m[1];
+  const bln=(LANG==="en"?BULAN_EN:BULAN_ID)[parseInt(m[2],10)-1];
+  return LANG==="en" ? bln+" "+parseInt(m[3],10)+", "+m[1] : parseInt(m[3],10)+" "+bln+" "+m[1];
 }
 function usiaDari(iso,acuan){
   if(!iso) return "";
@@ -380,6 +494,10 @@ function usiaDari(iso,acuan){
   if(k.getDate()<l.getDate()) bl--;
   if(bl<0){ th--; bl+=12; }
   if(th<0) return "";
+  if(LANG==="en"){
+    const yy=th+(th===1?" year":" years"), mm=bl+(bl===1?" month":" months");
+    return th>0 ? (bl>0? yy+" "+mm : yy) : mm;
+  }
   return th>0 ? (bl>0? th+" tahun "+bl+" bulan" : th+" tahun") : bl+" bulan";
 }
 function pecah(v){ return String(v||"").split(",").map(s=>s.trim()).filter(Boolean); }
@@ -446,6 +564,11 @@ function tampilError(j,t){
 
 /* ---------- render ---------- */
 function render(d){
+  LANG = deteksiBahasa(d);
+  if(LANG==="en") d = terjemahkan(d);
+  document.documentElement.lang = LANG;
+  pasangTeksStatis();
+
   const nama      = d["Nama Pasien"]||"-";
   const lahir     = d["Tanggal Lahir Pasien"]||"";
   const periksa   = d["Tanggal Pemeriksaan"]||"";
@@ -458,7 +581,7 @@ function render(d){
   const karang    = d["Karang Gigi"]||"";
   const susunan   = d["Susunan Gigi "]||d["Susunan Gigi"]||"";
 
-  document.title = "Rapor Gigi "+nama+" — Medikids";
+  document.title = (LANG==="en" ? "Dental Report " : "Rapor Gigi ")+nama+" — MHDC";
 
   /* ---- identitas (gaya PDF) ---- */
   const usia=usiaDari(lahir,periksa);
@@ -469,14 +592,14 @@ function render(d){
     row.appendChild(el("span",null,v));
     idt.appendChild(row);
   };
-  baris("Nama", nama);
-  baris("Tanggal Lahir", tglIndo(lahir)+(usia?"  ("+usia+")":""));
-  baris("Tanggal Pemeriksaan", tglIndo(periksa));
+  baris(tx("lNama"), nama);
+  baris(tx("lLahir"), tglIndo(lahir)+(usia?"  ("+usia+")":""));
+  baris(tx("lPeriksa"), tglIndo(periksa));
 
   /* ---- kondisi umum ---- */
   const kb=$("#kondisi");
-  kb.appendChild(el("div","l","Hasil Pemeriksaan Gigi Secara Umum"));
-  kb.appendChild(el("div","v", kondisi||"Hasil Pemeriksaan"));
+  kb.appendChild(el("div","l",tx("kondisiLabel")));
+  kb.appendChild(el("div","v", kondisi||tx("kondisiKosong")));
   const jelas = ada(d["Penjelasan_Hidden"]) ? d["Penjelasan_Hidden"] : PENJELASAN[kondisi];
   if(jelas) kb.appendChild(el("div","t",jelas));
 
@@ -530,25 +653,16 @@ function render(d){
     img.addEventListener("error",()=>img.classList.add("hide"));
   }
 
-  /* ---- peta gigi berwarna ---- */
-  if(CONFIG.PETA_WARNA){
-    if(CONFIG.GAMBAR_GIGI) $("#capWarna").classList.remove("hide");
-    gambarOdontogram(berlubang,sisaAkar,ompong);
-  } else {
-    $("#odo").classList.add("hide");
-    $("#legend").classList.add("hide");
-  }
-
   /* ---- temuan ---- */
-  const T=$("#temuan");
-  temuanGigi(T,"Gigi Berlubang",berlubang);
-  temuanGigi(T,"Sisa Akar",sisaAkar);
-  if(ada(bungsu)) temuanTeks(T,"Gigi Geraham Bungsu", bungsu+(ada(catBungsu)?" \u2014 "+catBungsu:""));
-  temuanGigi(T,"Gigi Ompong/Hilang",ompong);
-  if(ada(karang))  temuanTeks(T,"Karang Gigi",karang);
-  if(ada(susunan)) temuanTeks(T,"Susunan Gigi",susunan);
-  if(!T.children.length){
-    temuanTeks(T,"Hasil Baik","Tidak ditemukan masalah pada pemeriksaan hari ini. Pertahankan ya!");
+  const kotakTemuan=$("#temuan");
+  temuanGigi(kotakTemuan,tx("tBerlubang"),berlubang);
+  temuanGigi(kotakTemuan,tx("tSisaAkar"),sisaAkar);
+  if(ada(bungsu)) temuanTeks(kotakTemuan,tx("tBungsu"), bungsu+(ada(catBungsu)?" \u2014 "+catBungsu:""));
+  temuanGigi(kotakTemuan,tx("tOmpong"),ompong);
+  if(ada(karang))  temuanTeks(kotakTemuan,tx("tKarang"),karang);
+  if(ada(susunan)) temuanTeks(kotakTemuan,tx("tSusunan"),susunan);
+  if(!kotakTemuan.children.length){
+    temuanTeks(kotakTemuan,tx("tBaikJdl"),tx("tBaikTeks"));
   }
 
   /* ---- halaman 2: pesan dokter ---- */
@@ -557,10 +671,13 @@ function render(d){
   halo.appendChild(el("b",null, namaDokter(d["Nama Dokter"])));
 
   const pb=$("#pesan");
-  pecahPesanDokter(d["Pesan Dokter"]).forEach(p=>pb.appendChild(el("div","msgbox",p)));
+  const daftarPesan = LANG==="en"
+    ? String(d["Pesan Dokter"]||"").split("\n\n@@\n\n").filter(x=>x.trim())
+    : pecahPesanDokter(d["Pesan Dokter"]);
+  daftarPesan.forEach(p=>pb.appendChild(el("div","msgbox",p)));
   if(ada(d["Pesan lainnya"])) pb.appendChild(el("div","msgbox",d["Pesan lainnya"]));
   if(!pb.children.length){
-    pb.appendChild(el("div","msgbox","Terima kasih sudah menjaga kesehatan gigi Anda. Jangan lupa periksa rutin setiap 6 bulan ya!"));
+    pb.appendChild(el("div","msgbox",tx("pesanBawaan")));
   }
 
   /* ---- rekomendasi ---- */
@@ -569,13 +686,13 @@ function render(d){
   if(rek.length || ada(rekLain)){
     const box=$("#rekom");
     if(rek.length){
-      box.appendChild(el("div","kv","Direkomendasikan untuk melakukan :"));
+      box.appendChild(el("div","kv",tx("rekomAwal")));
       const ul=el("ul","clean");
       rek.forEach(r=>ul.appendChild(el("li",null,r)));
       box.appendChild(ul);
     }
     if(ada(rekLain)){
-      const p=el("div","kv","Catatan tambahan : ");
+      const p=el("div","kv",tx("catatan"));
       p.appendChild(el("b",null,rekLain));
       box.appendChild(p);
     }
@@ -585,8 +702,8 @@ function render(d){
 
   /* ---- rekomendasi produk ---- */
   const produkDipilih=[];
-  [["Rekomendasi Sikat Gigi","Sikat gigi"],["Rekomendasi Pasta Gigi","Pasta gigi"],
-   ["Rekomendasi Vitamin Gigi","Vitamin gigi"],["Additional","Additional"]].forEach(([k,pre])=>{
+  [["Rekomendasi Sikat Gigi",tx("pSikat")],["Rekomendasi Pasta Gigi",tx("pPasta")],
+   ["Rekomendasi Vitamin Gigi",tx("pVitamin")],["Additional",tx("pAdd")]].forEach(([k,pre])=>{
     pecah(d[k]).forEach(v=>{
       if(v==="-") return;
       produkDipilih.push([ pre ? pre+" : "+v : v, "" ]);
@@ -602,24 +719,16 @@ function render(d){
 
   /* ---- halaman 4: apa yang harus segera dilakukan ---- */
   const aksi=[];
-  if(berlubang.length) aksi.push(["Tambal Gigi yang Berlubang",
-    "Gigi berlubang bisa memburuk dengan cepat, menyebabkan nyeri hebat, infeksi, dan merusak gigi lain. Segera lakukan tambal gigi sebelum masalah bertambah parah.",
-    CONFIG.ARTIKEL.tambal]);
-  if(sisaAkar.length) aksi.push(["Cabut Sisa Akar",
-    "Sisa akar yang tertinggal bisa menyebabkan infeksi serius, bengkak, dan kerusakan pada gusi serta tulang rahang. Segera lakukan pencabutan untuk mencegah komplikasi lebih lanjut.",
-    CONFIG.ARTIKEL.akar]);
-  if(ompong.length) aksi.push(["Ganti Gigi yang Ompong/Hilang",
-    "Gigi yang hilang bisa menyebabkan gigi bergeser, gangguan gigitan, dan kerusakan tulang rahang. Ganti segera dengan gigi tiruan untuk menjaga kesehatan mulut dan fungsi kunyah.",
-    CONFIG.ARTIKEL.ompong]);
-  if(/Impaksi|Malposisi|Tanda Awal|Pemeriksaan Lebih Lanjut/i.test(bungsu)) aksi.push(["Cabut Gigi Geraham Bungsu Bermasalah",
-    "Gigi bungsu yang tumbuh tidak sempurna dapat menyebabkan nyeri, infeksi, dan merusak gigi lain. Segera konsultasikan pencabutan untuk mencegah komplikasi.",
-    CONFIG.ARTIKEL.bungsu]);
-  if(ada(karang) && karang.indexOf("Tidak Ada Karang Gigi")!==0) aksi.push(["Bersihkan Karang Gigi",
-    "Penumpukan karang bisa menyebabkan gusi meradang dan infeksi. Jika dibiarkan, gigi bisa goyang atau lepas. Segera lakukan scaling rutin untuk menjaga kesehatan gigi dan gusi.",
-    CONFIG.ARTIKEL.karang]);
-  if(susunan.indexOf("Tidak Rapi")!==-1 || susunan.indexOf("Maloklusi")!==-1) aksi.push(["Rapi dan Luruskan Susunan Gigi",
-    "Gigi yang tidak rapi bisa mengganggu fungsi kunyah, sulit dibersihkan, berisiko menimbulkan masalah lebih lanjut. Segera konsultasikan perawatan Orthodontic.",
-    CONFIG.ARTIKEL.susunan]);
+  const A=tx("aksi");
+  if(berlubang.length) aksi.push([A.tambal[0], A.tambal[1], CONFIG.ARTIKEL.tambal]);
+  if(sisaAkar.length)  aksi.push([A.akar[0],   A.akar[1],   CONFIG.ARTIKEL.akar]);
+  if(ompong.length)    aksi.push([A.ompong[0], A.ompong[1], CONFIG.ARTIKEL.ompong]);
+  if(/Impaksi|Malposisi|Tanda Awal|Pemeriksaan Lebih Lanjut|Impacted|Malpositioned|Early Signs|Further Examination/i.test(bungsu))
+                       aksi.push([A.bungsu[0], A.bungsu[1], CONFIG.ARTIKEL.bungsu]);
+  if(ada(karang) && karang.indexOf("Tidak Ada Karang Gigi")!==0 && karang.indexOf("No Tartar")!==0)
+                       aksi.push([A.karang[0], A.karang[1], CONFIG.ARTIKEL.karang]);
+  if(/Tidak Rapi|Maloklusi|Needs Attention/i.test(susunan))
+                       aksi.push([A.susunan[0],A.susunan[1],CONFIG.ARTIKEL.susunan]);
 
   if(aksi.length){
     const box=$("#todo");
@@ -628,7 +737,7 @@ function render(d){
       c.appendChild(el("h3",null,j));
       c.appendChild(el("p",null,t));
       if(v){
-        const a=el("a",null,"Baca Artikel, Klik Disini");
+        const a=el("a",null,tx("artikel"));
         a.href=v; a.target="_blank"; a.rel="noopener";
         c.appendChild(a);
       }
@@ -640,7 +749,7 @@ function render(d){
 
   /* ---- tombol ---- */
   const judulLayar = document.title;
-  const namaFile = (periksa||"") + "-Rapor-Gigi-" + nama.replace(/\s+/g,"-");
+  const namaFile = (periksa||"") + (LANG==="en"?"-Dental-Report-":"-Rapor-Gigi-") + nama.replace(/\s+/g,"-");
   window.addEventListener("beforeprint",()=>{ document.title = namaFile; });
   window.addEventListener("afterprint", ()=>{ document.title = judulLayar; });
   $("#btnPrint").addEventListener("click",()=>window.print());
@@ -649,7 +758,7 @@ function render(d){
     const b=e.currentTarget, teks=b.textContent;
     try{
       await navigator.clipboard.writeText(location.href);
-      b.textContent="Link tersalin";
+      b.textContent=tx("btnCopyOk");
     }catch(err){
       b.textContent=location.href;
     }
@@ -657,13 +766,29 @@ function render(d){
   });
   if(CONFIG.WA_CRO){
     $("#btnWa").href="https://wa.me/"+CONFIG.WA_CRO+"?text="+
-      encodeURIComponent("Halo MHDC, saya ingin bertanya tentang rapor gigi saya.");
+      encodeURIComponent(LANG==="en"
+        ? "Hello MHDC, I would like to ask about my dental report."
+        : "Halo MHDC, saya ingin bertanya tentang rapor gigi saya.");
   } else {
     $("#btnWa").classList.add("hide");
   }
 
   $("#stLoad").classList.add("hide");
   $("#isi").classList.remove("hide");
+}
+
+function pasangTeksStatis(){
+  const set=(id,k,html)=>{
+    const e=$("#"+id); if(!e) return;
+    if(html) e.innerHTML=tx(k); else e.textContent=tx(k);
+  };
+  set("loadJudul","loadJudul"); set("loadTeks","loadTeks");
+  set("jdlDokter","jdlDokter"); set("pilPesan","pilPesan");
+  set("jdlRekom","jdlRekom");   set("jdlLanjutan","jdlLanjutan");
+  set("jdlProduk","jdlProduk"); set("jdlAksi","jdlAksi");
+  set("btnPrint","btnPrint");   set("btnCopy","btnCopy"); set("btnWa","btnWa");
+  const cp=$(".tips-print"); if(cp) cp.innerHTML=tx("caraPrint");
+  const ft=$(".foot");       if(ft) ft.innerHTML=tx("foot");
 }
 
 function namaDokter(n){
@@ -674,7 +799,7 @@ function namaDokter(n){
 function temuanGigi(box,judul,list){
   const f=el("div","tm");
   f.appendChild(el("h3",null,judul));
-  f.appendChild(el("div","gg-list","Gigi : "+(list.length?list.join(", "):"—")));
+  f.appendChild(el("div","gg-list",tx("tGigi")+(list.length?list.join(", "):"—")));
   box.appendChild(f);
 }
 function temuanTeks(box,judul,teks){
@@ -684,51 +809,6 @@ function temuanTeks(box,judul,teks){
   box.appendChild(f);
 }
 
-/* ---------- odontogram ---------- */
-function gambarOdontogram(berlubang,sisaAkar,ompong){
-  const svg=$("#odo");
-  svg.setAttribute("viewBox","0 0 470 384");
-  svg.innerHTML="";
-  [[166,152,1],[166,152,0]].forEach(([rx,ry,atas])=>{
-    svg.appendChild(svgEl("path",{
-      d:"M "+(235-rx)+" 192 A "+rx+" "+ry+" 0 0 "+(atas?1:0)+" "+(235+rx)+" 192",
-      fill:"none",stroke:"var(--odo-line)","stroke-width":"1.5","stroke-dasharray":"3 4",opacity:".85"}));
-  });
-  const lbl=(x,y,t,an)=>{
-    const e=svgEl("text",{x:x,y:y,"text-anchor":an||"middle",class:"odo-ax"});
-    e.textContent=t; svg.appendChild(e);
-  };
-  lbl(235,14,"GIGI ATAS"); lbl(235,379,"GIGI BAWAH");
-  lbl(46,196,"KANAN","end"); lbl(424,196,"KIRI","start");
-
-  const warna=(n)=>{
-    if(sisaAkar.includes(n))  return "#8C6239";
-    if(ompong.includes(n))    return "#8A7761";
-    if(berlubang.includes(n)) return "#B7241C";
-    return null;
-  };
-  petaGigi().forEach(g=>{
-    const w=warna(g.n);
-    svg.appendChild(svgEl("rect",{x:g.x-g.w/2,y:g.y-g.h/2,width:g.w,height:g.h,rx:6,
-      fill:w||"#fff",stroke:w||"#9FB6D3","stroke-width":"1.4"}));
-    const t=svgEl("text",{x:g.x,y:g.y+4,"text-anchor":"middle",class:"gg-num",fill:w?"#fff":"#5C7395"});
-    t.textContent=g.n; svg.appendChild(t);
-  });
-
-  const daftar=[];
-  if(berlubang.length) daftar.push(["#B7241C","Gigi berlubang"]);
-  if(sisaAkar.length)  daftar.push(["#8C6239","Sisa akar"]);
-  if(ompong.length)    daftar.push(["#8A7761","Gigi ompong/hilang"]);
-  if(!daftar.length)   daftar.push(["#fff","Tidak ada gigi bermasalah"]);
-  const lg=$("#legend");
-  daftar.forEach(([w,t])=>{
-    const s=el("span"), i=el("i");
-    i.style.background=w;
-    if(w==="#fff") i.style.border="1.5px solid #9FB6D3";
-    s.appendChild(i); s.appendChild(document.createTextNode(t));
-    lg.appendChild(s);
-  });
-}
 </script>
 </body>
 </html>
