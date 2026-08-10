@@ -162,7 +162,7 @@ ul.clean li{margin-bottom:4px;font-size:14px}
 
 <div id="stLoad" class="state">
   <div class="spin"></div>
-  <h2 id="loadJudul">Membuka rapor gigi…</h2>
+  <h2 id="loadJudul">Membuka hasil pemeriksaan…</h2>
   <p id="loadTeks">Mohon tunggu sebentar.</p>
 </div>
 
@@ -231,8 +231,8 @@ ul.clean li{margin-bottom:4px;font-size:14px}
   </div>
 
   <div class="tools">
-    <button class="btn primary" id="btnPrint">Simpan / cetak rapor (PDF)</button>
-    <button class="btn ghost" id="btnCopy">Salin link rapor</button>
+    <button class="btn primary" id="btnPrint">Simpan / cetak hasil (PDF)</button>
+    <button class="btn ghost" id="btnCopy">Salin link hasil</button>
     <a class="btn ghost" id="btnWa" href="#" target="_blank" rel="noopener">Tanya MHDC via WhatsApp</a>
   </div>
   <div class="tips-print">
@@ -421,7 +421,7 @@ function terjemahkan(d){
 
 const T = {
   id:{
-    loadJudul:"Membuka rapor gigi…", loadTeks:"Mohon tunggu sebentar.",
+    loadJudul:"Membuka hasil pemeriksaan…", loadTeks:"Mohon tunggu sebentar.",
     lNama:"Nama", lLahir:"Tanggal Lahir", lPeriksa:"Tanggal Pemeriksaan",
     kondisiLabel:"Hasil Pemeriksaan Gigi Secara Umum", kondisiKosong:"Hasil Pemeriksaan",
     tBerlubang:"Gigi Berlubang", tSisaAkar:"Sisa Akar", tBungsu:"Gigi Geraham Bungsu",
@@ -435,10 +435,10 @@ const T = {
     jdlProduk:"REKOMENDASI PRODUK PERAWATAN GIGI",
     pSikat:"Sikat gigi", pPasta:"Pasta gigi", pVitamin:"Vitamin gigi", pAdd:"Additional",
     jdlAksi:"Apa yang Harus Segera Dilakukan", artikel:"Baca Artikel, Klik Disini",
-    btnPrint:"Simpan / cetak rapor (PDF)", btnCopy:"Salin link rapor", btnCopyOk:"Link tersalin",
+    btnPrint:"Simpan / cetak hasil (PDF)", btnCopy:"Salin link hasil", btnCopyOk:"Link tersalin",
     btnWa:"Tanya MHDC via WhatsApp",
-    caraPrint:'Cara simpan jadi PDF: tekan <b>Simpan / cetak rapor</b> &rarr; pada pilihan printer, pilih <b>Save as PDF</b> / <b>Simpan sebagai PDF</b>.',
-    foot:"Rapor ini dibuat otomatis dari hasil pemeriksaan di booth MHDC Group.<br>Untuk pertanyaan lebih lanjut, silakan hubungi tim MHDC.",
+    caraPrint:'Cara simpan jadi PDF: tekan <b>Simpan / cetak hasil</b> &rarr; pada pilihan printer, pilih <b>Save as PDF</b> / <b>Simpan sebagai PDF</b>.',
+    foot:"Hasil ini dibuat otomatis dari pemeriksaan di booth MHDC Group.<br>Untuk pertanyaan lebih lanjut, silakan hubungi tim MHDC.",
     aksi:{
       tambal:["Tambal Gigi yang Berlubang","Gigi berlubang bisa memburuk dengan cepat, menyebabkan nyeri hebat, infeksi, dan merusak gigi lain. Segera lakukan tambal gigi sebelum masalah bertambah parah."],
       akar:["Cabut Sisa Akar","Sisa akar yang tertinggal bisa menyebabkan infeksi serius, bengkak, dan kerusakan pada gusi serta tulang rahang. Segera lakukan pencabutan untuk mencegah komplikasi lebih lanjut."],
@@ -581,7 +581,7 @@ function render(d){
   const karang    = d["Karang Gigi"]||"";
   const susunan   = d["Susunan Gigi "]||d["Susunan Gigi"]||"";
 
-  document.title = (LANG==="en" ? "Dental Report " : "Rapor Gigi ")+nama+" — MHDC";
+  document.title = (LANG==="en" ? "Dental Health Report " : "Hasil Pemeriksaan Gigi ")+nama+" — MHDC";
 
   /* ---- identitas (gaya PDF) ---- */
   const usia=usiaDari(lahir,periksa);
@@ -749,7 +749,7 @@ function render(d){
 
   /* ---- tombol ---- */
   const judulLayar = document.title;
-  const namaFile = (periksa||"") + (LANG==="en"?"-Dental-Report-":"-Rapor-Gigi-") + nama.replace(/\s+/g,"-");
+  const namaFile = (periksa||"") + (LANG==="en"?"-Dental-Health-Report-":"-Hasil-Pemeriksaan-Gigi-") + nama.replace(/\s+/g,"-");
   window.addEventListener("beforeprint",()=>{ document.title = namaFile; });
   window.addEventListener("afterprint", ()=>{ document.title = judulLayar; });
   $("#btnPrint").addEventListener("click",()=>window.print());
