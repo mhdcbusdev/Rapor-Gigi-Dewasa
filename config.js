@@ -9,7 +9,7 @@ window.MHDC_CONFIG = {
 
   /* 1) WAJIB DIISI — URL Web App Apps Script milik spreadsheet DEWASA
         Apps Script > Deploy > Manage deployments > salin "Web app URL" */
-  API_URL: "https://script.google.com/macros/s/AKfycbziTENxY0QG71RrnlxIJqSKnLeyf4vP1ueRZQKfjVCk0pAn4pyk3wZcS7cKnCQeltoN6Q/exec",
+  API_URL: "https://script.google.com/macros/s/AKfycbwV6PtLipd_54FCvY9lVC8eEei5hTB8FYPPW-EhoK38b1M44sKuS0ROMBpZO8Fk3AJkRw/exec",
 
   /* 2) Alamat halaman rapor. Sesuaikan kalau nama repo berbeda,
         dan harus sama dengan RAPOR_BASE di watzap.gs */
