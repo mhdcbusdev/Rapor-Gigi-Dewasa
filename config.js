@@ -9,7 +9,7 @@ window.MHDC_CONFIG = {
 
   /* 1) URL Web App Apps Script milik spreadsheet DEWASA
         Apps Script > Deploy > Manage deployments > salin "Web app URL" */
-  API_URL: "https://script.google.com/macros/s/AKfycbwV6PtLipd_54FCvY9lVC8eEei5hTB8FYPPW-EhoK38b1M44sKuS0ROMBpZO8Fk3AJkRw/exec",
+  API_URL: "https://script.google.com/macros/s/AKfycbzmASoOPOMHo8WGw3B4yxQ2Rc8K3y2m0N0oKTQ9d1vk2wF_m0dE9Y7QX-cPo-ZGMWGevg/exec",
 
   /* 2) Alamat halaman rapor. Akhiri dengan '?id=' */
   RAPOR_BASE: "https://mhdcbusdev.github.io/Rapor-Gigi-Dewasa/?id=",
